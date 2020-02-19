@@ -1,26 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Tfw from 'tfw'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import InitialParameters from './view/initial-parameters'
+import ProcessAll from './view/process-all'
+
+import './App.css'
+
+Tfw.Theme.register("default", {
+    bg0: '#bcd',
+    bg3: '#fff',
+    bgP: '#0f71b7'
+})
+Tfw.Theme.apply("default")
+
+
+interface IState {
+    page: string,
+    inputFiles: string[],
+    outputFolder: string
 }
 
-export default App;
+class App extends React.Component<{}, IState> {
+    state = { page: "params", inputFiles: [], outputFolder: '' }
+
+    private handleProcess = (inputFiles: string[], outputFolder: string) => {
+        this.setState({ page: "process", inputFiles, outputFolder })
+        /*
+        for (const file of inputFiles) {
+            const info = await MovieService.getInfo(file)
+            console.info("info=", file, info);
+            const outputFile = Path.join(outputFolder, "snapshot.png")
+            await MovieService.extractFrameToPNG(
+                path, outputFile, 1
+            )
+            */
+    }
+
+    render() {
+        const { page, inputFiles, outputFolder } = this.state
+
+        return (
+            <div className="App thm-bg0">
+                <Tfw.Layout.Stack value={page}>
+                    <InitialParameters key="params" onProcess={this.handleProcess} />
+                    <ProcessAll
+                        key="process"
+                        width={800} height={600}
+                        inputFiles={inputFiles}
+                        outputFolder={outputFolder} />
+                </Tfw.Layout.Stack>
+            </div>
+        );
+    }
+}
+
+export default App

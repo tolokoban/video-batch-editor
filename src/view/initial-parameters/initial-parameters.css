@@ -1,0 +1,33 @@
+div.view-InitialParameters {
+    padding: 0;
+    min-width: 640px;
+    max-width: 90vw;
+}
+
+div.view-InitialParameters>section {
+    padding: 1rem;
+}
+
+div.view-InitialParameters>section div.error {
+    font-size: 80%;
+    margin: 0 1rem 1rem 1rem;
+    min-height: 1em;
+    line-height: 1em;
+}
+
+div.view-InitialParameters>section div.hint {
+    opacity: .5;
+    font-size: 80%;
+    margin: 0 1rem 1rem 1rem;
+    min-height: 1em;
+    line-height: 1em;
+}
+
+div.view-InitialParameters>footer,
+div.view-InitialParameters>header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}

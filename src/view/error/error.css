@@ -1,0 +1,16 @@
+div.view-Error {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 0.25rem;
+}
+
+div.view-Error > div {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: .25rem .5rem;
+    font-size: 80%;
+    max-width: 240px;
+}
