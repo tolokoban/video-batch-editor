@@ -1428,18 +1428,6 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.27.tgz#d7506f73160ad30fcebbcf5b8b7d2d976e649e42"
   integrity sha512-odQFl/+B9idbdS0e8IxDl2ia/LP8KZLXhV3BUeI98TrZp0uoIzQPhGd+5EtzHmT0SMOIaPd7jfz6pOHLWTtl7A==
 
-"@types/ol@^4.6.5":
-  version "4.6.5"
-  resolved "https://registry.yarnpkg.com/@types/ol/-/ol-4.6.5.tgz#361366d61cd0367a44f580ce2227e421049eea8b"
-  integrity sha512-SvAnsqaUWH90j2BFqH3VjfoclMe7iasMI1E/wg3SgewcmZVQSFtei0MtFR7wZjUYXFmgH0gjlCSkn+oErLtj4w==
-  dependencies:
-    "@types/openlayers" "*"
-
-"@types/openlayers@*":
-  version "4.6.17"
-  resolved "https://registry.yarnpkg.com/@types/openlayers/-/openlayers-4.6.17.tgz#39a8dce631e284a26cf0958664509932e6cd7c7d"
-  integrity sha512-vCCV5MY3XRmHyED1ndHxXJ/5IpeA3pX9J6IKZnMY+uTerhYNfG7pM451dgS90tSkBBxszd8ETPrF5ggQ9mqwlA==
-
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
@@ -1741,9 +1729,9 @@ acorn-walk@^6.0.1:
   integrity sha512-7evsyfH1cLOCdAzZAd43Cic04yKydNx0cF+7tiA19p1XnLLPU4dpCQOqpjqwokFe//vS0QqfqqjCS2JkiIs0cA==
 
 acorn@^5.5.3:
-  version "5.7.3"
-  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.3.tgz#67aa231bf8812974b85235a96771eb6bd07ea279"
-  integrity sha512-T/zvzYRfbVojPWahDsE5evJdHb3oJoQfFbsrKM7w5Zcs++Tr257tia3BmMP8XYVjp1S9RZXQMh7gao96BlqZOw==
+  version "5.7.4"
+  resolved "https://registry.yarnpkg.com/acorn/-/acorn-5.7.4.tgz#3e8d8a9947d0599a1796d10225d7432f4a4acf5e"
+  integrity sha512-1D++VG7BhrtvQpNbBzovKNc1FLGGEE/oGe7b9xJm/RFHMBeUaUGpluV9RLjZa47YFdPcDAenEYuq9pQPcMdLJg==
 
 acorn@^6.0.1, acorn@^6.0.4, acorn@^6.2.1:
   version "6.4.0"
@@ -10541,12 +10529,11 @@ text-table@0.2.0, text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-tfw@^0.9.2:
-  version "0.9.2"
-  resolved "https://registry.yarnpkg.com/tfw/-/tfw-0.9.2.tgz#c4070fb6af175bc392e6f9f962ca1ab14fdf0ad8"
-  integrity sha512-uPtF+TKkeiHfIGfIA2lWw0qRB2FmWbOsBUwDS2AqmbSv7gU9Er9tGOzev8nkTVgApbuqpmJkkNYgNa+N5C4z7g==
+tfw@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/tfw/-/tfw-0.11.0.tgz#d43fb0b7a33c10ccb092315845c5610307751aa5"
+  integrity sha512-iXgQWAFiCNeFCy9k/PP3gc9l67YAPW/ffmHpI7Rlzn1RQPCsZef0q8i5kFkOuHxIejdpX6tZ6dc6uQl2ueggAw==
   dependencies:
-    "@types/ol" "^4.6.5"
     "@types/react" "^16.9.17"
     "@types/react-dom" "^16.9.4"
     js-yaml "^3.13.1"
