@@ -1,14 +1,22 @@
-# video-batch-editor
-Electron App to edit videos in batch mode
+import sys
+import kernel.config
 
-![layers](result.png)
+def load_config(filename):
+    return kernel.config.load(filename)
 
-## Arguments
+def usage():
+    return """
+The compositor needs one and only one argument: the JSON config filename.
+If you want more details on this configuration file, execute the following command:
 
-Only one argument is expected: the path to the JSON configuration file.
+$ python3 {0} --help
 
-Here is the type of this file:
-```ts
+""".format(sys.argv[0])
+
+def help():
+    return """
+The configuration file must be in JSON format and its type must be conform to this:
+
 {
     output: {
         width: number,
@@ -71,11 +79,9 @@ Here is the type of this file:
         }
     }>
 }
-```
 
-And here is a concrete example:
+Here is an example:
 
-```json
 {
     "output": {
         "width": 1920, "height": 1080, "path": "output", "template": "final*.jpg", "pad": 2
@@ -102,19 +108,4 @@ And here is a concrete example:
         }
     ]
 }
-```
-
-## Development
-
-### `npm run electron:dev`
-
-Runs the Electron app in the development mode.
-
-The Electron app will reload if you make edits in the `electron` directory.  
-You will also see any lint errors in the console.
-
-### `npm run electron:build`
-
-Builds the Electron app package for production to the `dist` folder.
-
-Your Electron app is ready to be distributed!
+"""

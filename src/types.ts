@@ -1,20 +1,21 @@
-# video-batch-editor
-Electron App to edit videos in batch mode
+export type ISize = "cover" | "contain" | "original"
 
-![layers](result.png)
+export interface IPoint {
+    x: number,
+    y: number
+}
 
-## Arguments
+export interface IDimension {
+    width: number,
+    height: number
+}
 
-Only one argument is expected: the path to the JSON configuration file.
-
-Here is the type of this file:
-```ts
-{
+export interface ITask {
     output: {
         width: number,
         height: number,
         // Output folder.
-        folder: string,
+        path: string,
         // If the frames are named image001.png, image002.png, ...
         // template will be "image*.png", and the pad will be 3.
         // The start is the placeholder for the frame number.
@@ -71,50 +72,3 @@ Here is the type of this file:
         }
     }>
 }
-```
-
-And here is a concrete example:
-
-```json
-{
-    "output": {
-        "width": 1920, "height": 1080, "path": "output", "template": "final*.jpg", "pad": 2
-    },
-    "filmstrips": {
-        "main": { "folder": "input", "template": "frame*.png" }
-    },
-    "layers": [
-        { "image": "gfx/background.jpg", "size": "cover" },
-        {
-            "image": "#main", "size": "contain",
-            "x": -0.25, "y": 0, "width": 1.5, "height": 2
-        },
-        {
-            "image": "#main", "size": "contain", "scale": 4,
-            "x": 0.5, "y": -0.5,
-            "clip": {
-                "x": 0.5, "y": 0.5, "width": 0, "height": 0.75
-            }
-        },
-        {
-            "image": "gfx/logo.jpg", "size": "contain",
-            "x": 1, "y": -1, "center": [1, -1], "width": 0.25, "height": 0.125
-        }
-    ]
-}
-```
-
-## Development
-
-### `npm run electron:dev`
-
-Runs the Electron app in the development mode.
-
-The Electron app will reload if you make edits in the `electron` directory.  
-You will also see any lint errors in the console.
-
-### `npm run electron:build`
-
-Builds the Electron app package for production to the `dist` folder.
-
-Your Electron app is ready to be distributed!
