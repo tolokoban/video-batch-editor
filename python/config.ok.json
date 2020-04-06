@@ -1,0 +1,26 @@
+{
+    "output": {
+        "width": 800, "height": 600, "folder": "output", "template": "final*.jpg", "pad": 4
+    },
+    "filmstrips": {
+        "main": { "folder": "input", "template": "frame-*.png" }
+    },
+    "layers": [
+        { "image": "gfx/background.jpg", "size": "cover" },
+        {
+            "image": "#main", "size": "contain",
+            "x": -0.25, "y": 0, "width": 1.5, "height": 2
+        },
+        {
+            "image": "#main", "size": "contain", "scale": 4,
+            "x": 0.5, "y": -0.5,
+            "clip": {
+                "x": 0.5, "y": 0.5, "width": 0, "height": 0.75
+            }
+        },
+        {
+            "image": "gfx/logo.png", "size": "contain",
+            "x": 1, "y": -1, "center": [1, -1], "width": 0.25, "height": 0.125
+        }
+    ]
+}
