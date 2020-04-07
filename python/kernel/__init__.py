@@ -113,9 +113,15 @@ def compute_contain_scale(input, output, type):
 def usage():
     return """
 The compositor needs one and only one argument: the JSON config filename.
-If you want more details on this configuration file, execute the following command:
 
-$ python3 {0} --help
+Starting process:
+    python3 {0} config.json
+
+Just previewing the first frame:
+    python3 {0} config.json --preview
+
+Detailed help:
+    python3 {0} --help
 
 """.format(sys.argv[0])
 
