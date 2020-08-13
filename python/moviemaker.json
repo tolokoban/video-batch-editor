@@ -1,0 +1,11 @@
+{
+    "braynsHostAndPort": "r1i7n31.bbp.epfl.ch:28201",
+    "circuitPath": "/gpfs/bbp.cscs.ch/project/proj42/simulations/CA1.O1.20191017/full_comportment/BlueConfig",
+    "cellGID": 841,
+    "report": "somas",
+    "radiusMultiplier": 3,
+    "resolution": [1920, 1080],
+    "start": 12300,
+    "stop": 12500,
+    "framesOutputDirectory": "/gpfs/bbp.cscs.ch/project/proj3/tolokoban/SSCx/input"
+}

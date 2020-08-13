@@ -8,6 +8,8 @@ class Filmstrip:
         if not path.is_dir():
             raise Exception("Filmstrip folder does not exists: {}".format(folder))
         files = [str(x.absolute()) for x in path.glob(template)]
+        if len(files) == 0:
+            raise FileNotFoundError(f"No file matches the following glob pattern:\n{path}/{template}!")
         files.sort()
         self.files = files
 

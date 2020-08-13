@@ -69,9 +69,12 @@ class Config:
     def parse_filmstrips(self, data):
         filmstrips = data["filmstrips"]
         for key in filmstrips.keys():
-            filmstrip = kernel.filmstrip.Filmstrip(filmstrips[key])
-            self.filmstrips[key] = filmstrip
-            self.nb_frames = max(self.nb_frames, filmstrip.count())
+            try:
+                filmstrip = kernel.filmstrip.Filmstrip(filmstrips[key])
+                self.filmstrips[key] = filmstrip
+                self.nb_frames = max(self.nb_frames, filmstrip.count())
+            except FileNotFoundError as ex:
+                raise FileNotFoundError(f"Definition error in \"filmstrips/{key}\":\n{str(ex)}")
 
     def parse_output(self, data):
         output = data["output"]
