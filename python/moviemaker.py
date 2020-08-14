@@ -263,6 +263,7 @@ add_model_params = {
     "112_load_efferent_synapses": False
   }
 }
+print(json.dumps(add_model_params, indent=4))
 print("Loading in progress...")
 result = brayns.rockets_client.request("add-model", add_model_params)
 print("Loaded successfuly!")
@@ -395,7 +396,13 @@ animFrames = [i for i in range(start, stop)]
 cam = brayns.get_camera()
 camParams = brayns.get_camera_params()
 
-base = [cam["position"], [0,0,-1], [0,1,0], camParams["aperture_radius"], camParams["focus_distance"]]
+base = [
+    cam["position"],
+    [0,0,-1],
+    [0,1,0],
+    camParams["aperture_radius"],
+    camParams["focus_distance"]
+]
 camDefines = list()
 for i in range(len(animFrames)):
         camDefines.append(base)

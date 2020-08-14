@@ -20,5 +20,7 @@ pip install -i https://bbpteam.epfl.ch/repository/devpi/simple/ bluepy
 * **voltageRange**: Array of min and max voltage.
 * **title**: .
 * **subTitle**: .
-* **closeUpAxon**: [boolean] .
-* **closeUpDendrites**: [boolean] .
+* **showCloseUpAxon**: [boolean] .
+* **showCoseUpDendrites**: [boolean] .
+* **outputFolder**: .
+* **outputFilename**: .
