@@ -1,5 +1,5 @@
 {
-    "braynsHostAndPort": "r2i0n32.bbp.epfl.ch:5000",
+    "braynsHostAndPort": "r1i7n17.bbp.epfl.ch:5000",
     "tempFolder": "/gpfs/bbp.cscs.ch/project/proj3/tolokoban/SSCx/input",
     "firstMovieToProcess": 1,
     "resolution": [
@@ -15,7 +15,7 @@
             "gid": 841,
             "duration": 1,
             "firstSimulationStep": 12300,
-            "lastSimulationStep": 12360,
+            "lastSimulationStep": 12301,
             "voltageRange": [
                 -80,
                 -10

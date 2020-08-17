@@ -84,10 +84,11 @@ class Brayns:
     def get_camera_frame(self):
         camera = self.exec("get-camera", {})
         camera_params = self.exec("get-camera-params", {})
+        pos = camera["position"][:]
         return [
-            camera["position"],
-            [0, 0, -1],
-            [0, 1, 0],
+            pos[0], pos[1], pos[2],
+            0, 0, -1,
+            0, 1, 0,
             camera_params["aperture_radius"],
             camera_params["focus_distance"]
         ]
@@ -98,7 +99,7 @@ class Brayns:
         return result["progress"]
 
     def look_at(self, target, distance):
-        print(lib.style.att("        Look at:", { "target": target, "distance": distance }))
+        print(lib.style.att("        Look at", { "target": target, "distance": distance }))
         position = [
             target[0],
             target[1],

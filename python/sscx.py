@@ -25,6 +25,7 @@ try:
     else:
         while lib.process.exec(cfg, brayns):
             lib.util.save_file_content(args.config, json.dumps(cfg, indent=4))
+    print(lib.style.info("Script has finished ", "successfuly!"))
 except Exception as ex:
     print(f"""
 {lib.style.error(str(ex))}

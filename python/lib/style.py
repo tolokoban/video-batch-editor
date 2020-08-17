@@ -29,5 +29,5 @@ def box(txt, max_length=120):
 def info(txt, more=""):
     return colorama.Fore.CYAN + txt + colorama.Style.BRIGHT + more + colorama.Style.RESET_ALL
 
-def att(name, value=""):
-    return name + colorama.Style.DIM + ": " + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + json.dumps(value) + colorama.Style.RESET_ALL
+def att(name, value="", indent=None):
+    return name + colorama.Style.DIM + ": " + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + json.dumps(value, indent=indent) + colorama.Style.RESET_ALL

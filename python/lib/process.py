@@ -1,3 +1,4 @@
+import json
 import time
 import lib.geom
 import lib.style
@@ -52,17 +53,24 @@ def make_movie(brayns, output_folder, prefix,
         simulation_start, simulation_stop):
     brayns.look_at(camera_target, camera_distance)
     simulation_length = simulation_stop - simulation_start + 1
-    camera_frames = brayns.get_camera_frame() * simulation_length
+    camera_frame = brayns.get_camera_frame()
+    camera_frames = []
+    for i in range(simulation_length):
+        for v in camera_frame:
+            camera_frames.append(v)
+    # camera_frames = camera_frame * simulation_length
     animation_frames = [x for x in range(simulation_start, simulation_stop + 1)]
-    brayns.exec("export-frames-to-disk", {
+    params = {
         "path": "output_folder",
         "spp": 10,
         "animation_frames": animation_frames,
         "camera_definitions": camera_frames
-    })
+    }
+    brayns.exec("export-frames-to-disk", params)
+    print(lib.style.att("        export-frames-to-disk ", params, indent=2))
     progress = 0.0
     while progress < 1.0:
-        progress = brayns.get_progress()
         print(lib.style.att("        Progress: ", f"{int(progress * 100)}%"))
+        progress = brayns.get_progress()
         time.sleep(2)
     print(lib.style.att("        Progress: ", "100%"))
