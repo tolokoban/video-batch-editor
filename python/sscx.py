@@ -17,7 +17,7 @@ try:
         sys.exit(0)
     if args.config == None:
         raise ValueError("Configuration filename is missing!")
-    cfg = lib.config.parse(args.config)
+    cfg = lib.config.parse(args.config, args.flags)
     if "preview" in args.flags:
         print(lib.style.info("No connection to Brayns: ", "preview mode!"))
         brayns = None
@@ -34,13 +34,22 @@ except Exception as ex:
     print(f"""
 {lib.style.error(str(ex))}
 
-Execute this command to get a full documentation of this tool:
+Usage:
+$ python3 {sys.argv[0]} config.json
 $ python3 {sys.argv[0]} --help
 
-Or this one to get more technical details on the error:
-$ python3 {sys.argv[0]} config.json --debug
-
 """)
+    print("List of available flags:")
+    for flag in [
+        ["debug", "Print out stack trace on errors."],
+        ["help", "Get detailed info about the configuration file."],
+        ["preview", "Skip the Brayns part and go to compositing only."],
+        ["reset", "Reset \"firstMovieToProcess\" to 0"],
+        ["test", "Process only the first movie."]
+    ]:
+        (name, desc) = flag
+        print(lib.style.flag(f"    --{name}", desc))
+    print()
     if "--debug" in sys.argv:
         print(lib.style.red(traceback.format_exc()))
         print()

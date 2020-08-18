@@ -31,3 +31,6 @@ def info(txt, more=""):
 
 def att(name, value="", indent=None):
     return name + colorama.Style.DIM + ": " + colorama.Style.RESET_ALL + colorama.Style.BRIGHT + json.dumps(value, indent=indent) + colorama.Style.RESET_ALL
+
+def flag(name, value="", indent=None):
+    return colorama.Style.BRIGHT + colorama.Fore.YELLOW + name + colorama.Style.RESET_ALL + ": " + colorama.Style.DIM + json.dumps(value, indent=indent) + colorama.Style.RESET_ALL

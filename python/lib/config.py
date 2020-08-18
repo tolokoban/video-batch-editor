@@ -1,7 +1,7 @@
 import os.path
 import lib.util
 
-def parse(config_filename):
+def parse(config_filename, flags):
     """Return a parsed JSON configuration file."""
     if config_filename == "" or config_filename == None:
         raise ValueError("Missing configuration filename!")
@@ -9,6 +9,8 @@ def parse(config_filename):
         cfg = lib.util.parse_json(
             lib.util.load_file_content(config_filename)
         )
+        if "reset" in flags or "test" in flags:
+            cfg["firstMovieToProcess"] = 0
         checkStr(cfg, "braynsHostAndPort")
         checkStr(cfg, "tempFolder")
         checkInt(cfg, "firstMovieToProcess", 0)
@@ -17,6 +19,7 @@ def parse(config_filename):
         checkFloat(cfg, "materialGlossiness", 0.2)
         checkFloat(cfg, "materialEmission", 0.1)
         checkInt(cfg, "fps", 30)
+        checkInt(cfg, "spp", 50)
         checkCouple(cfg, "resolution", [1920, 1080])
         movies = cfg["movies"]
         if cfg["firstMovieToProcess"] >= len(movies):
