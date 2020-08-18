@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-tar -czvf sscx.tar.gz sscx.py lib/*.py sscx.example.json
+tar -czvf sscx.tar.gz sscx.py gfx/ lib/*.py sscx.example.json

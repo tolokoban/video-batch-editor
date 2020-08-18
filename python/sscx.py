@@ -18,12 +18,16 @@ try:
     if args.config == None:
         raise ValueError("Configuration filename is missing!")
     cfg = lib.config.parse(args.config)
-    brayns = lib.brayns.Brayns(cfg)
+    if "preview" in args.flags:
+        print(lib.style.info("No connection to Brayns: ", "preview mode!"))
+        brayns = None
+    else:
+        brayns = lib.brayns.Brayns(cfg)
     if "test" in args.flags:
         cfg["firstMovieToProcess"] = 0
-        lib.process.exec(cfg, brayns)
+        lib.process.exec(cfg, brayns, args.flags)
     else:
-        while lib.process.exec(cfg, brayns):
+        while lib.process.exec(cfg, brayns, args.flags):
             lib.util.save_file_content(args.config, json.dumps(cfg, indent=4))
     print(lib.style.info("Script has finished ", "successfuly!"))
 except Exception as ex:

@@ -10,6 +10,39 @@ class Brayns:
         self.exec("set-application-parameters", {
             "viewport": config["resolution"]
         })
+        self.exec("set-renderer", {
+            "accumulation": True,
+            "background_color": [0,0,0],
+            "current": "circuit_explorer_advanced",
+            "head_light": False,
+            "max_accum_frames": 128,
+            "samples_per_pixel": 1,
+            "subsampling": 1,
+            "variance_threshold": -1
+        })
+        self.exec("clear-lights")
+        self.exec("add-light-directional", {
+            "angularDiameter": 1,
+            "color": [1,0.9,0.8],
+            "direction": [0.5773502691896258,-0.5773502691896258,-0.5773502691896258],
+            "intensity": 1,
+            "is_visible": True
+        })
+        self.exec("add-light-directional", {
+            "angularDiameter": 1,
+            "color": [0.6,0.8,1],
+            "direction": [-0.8935341032175406,0.4467670516087703,-0.04467670516087703],
+            "intensity": 0.225,
+            "is_visible": True
+        })
+        self.exec("add-light-directional", {
+            "angularDiameter": 1,
+            "color": [1,1,1],
+            "direction": [0,0,1],
+            "intensity": 1.5,
+            "is_visible": True
+        })
+
 
     def connect(self, host_and_port):
         try:
@@ -77,6 +110,25 @@ class Brayns:
         print(lib.style.att("    Model's ID", model["id"]))
         return model
 
+    def set_material(self, model_id, specularExponent, glossiness, emission):
+        self.exec("set-material-extra-attributes", {"modelId": model_id})
+        self.exec("set-material-range", {
+            "modelId": model_id,
+            "materialIds": [],
+            "diffuseColor": [0.9, 0.9, 0.9],
+            "specularColor": [1, 1, 1],
+            "specularExponent": specularExponent,
+            "reflectionIndex": 0,
+            "opacity": 1,
+            "refractionIndex": 1,
+            "shadingMode": 1,
+            "glossiness": glossiness,
+            "emission": emission,
+            "clippingMode": 0,
+            "userParameter": 0,
+            "simulationDataCast": True
+        })
+
     def get_last_simulation_step(self):
         anim_params = self.exec("get-animation-parameters", {})
         return anim_params["frame_count"] - 1
@@ -94,12 +146,10 @@ class Brayns:
         ]
 
     def get_progress(self):
-        plugin = CircuitExplorer(self.brayns)
-        result = plugin.get_export_frames_progress()
+        result = self.exec("get-export-frames-progress")
         return result["progress"]
 
     def look_at(self, target, distance):
-        print(lib.style.att("        Look at", { "target": target, "distance": distance }))
         position = [
             target[0],
             target[1],

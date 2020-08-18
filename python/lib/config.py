@@ -13,9 +13,14 @@ def parse(config_filename):
         checkStr(cfg, "tempFolder")
         checkInt(cfg, "firstMovieToProcess", 0)
         checkFloat(cfg, "somaScale", 3)
+        checkFloat(cfg, "materialSpecularExponent", 15)
+        checkFloat(cfg, "materialGlossiness", 0.2)
+        checkFloat(cfg, "materialEmission", 0.1)
         checkInt(cfg, "fps", 30)
         checkCouple(cfg, "resolution", [1920, 1080])
         movies = cfg["movies"]
+        if cfg["firstMovieToProcess"] >= len(movies):
+            raise Exception("There is nothing more to do in this configuration file!\nPlease reset the attribute \"firstMovieToProcess\" to 0.")
         if type(movies) != list:
             raise Exception("Attribute \"movies\" must be an array!")
         for movie in movies:
@@ -27,7 +32,7 @@ def parse(config_filename):
                 checkInt(movie, "gid")
                 checkFloat(movie, "duration")
                 checkInt(movie, "firstSimulationStep", 0)
-                checkInt(movie, "lastSimulationStep", -1)
+                checkInt(movie, "lastSimulationStep")
                 checkCouple(movie, "voltageRange", [-80, -10])
                 checkStr(movie, "title", "")
                 checkStr(movie, "subTitle", "")
@@ -45,7 +50,7 @@ def parse(config_filename):
 
 
 def check(data, name, default=None):
-    if data[name] == None:
+    if not name in data:
         if default != None:
             data[name] = default
         else:
