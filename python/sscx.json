@@ -1,7 +1,7 @@
 {
-    "braynsHostAndPort": "r2i1n17.bbp.epfl.ch:5000",
+    "braynsHostAndPort": "r2i0n5.bbp.epfl.ch:22169",
     "tempFolder": "/gpfs/bbp.cscs.ch/project/proj3/tolokoban/SSCx/input",
-    "firstMovieToProcess": 2,
+    "firstMovieToProcess": 0,
     "resolution": [
         1920,
         1080
@@ -13,9 +13,8 @@
             "circuit": "/gpfs/bbp.cscs.ch/project/proj42/simulations/CA1.O1.20191017/full_comportment/BlueConfig",
             "report": "AllCompartmentsVoltage",
             "gid": 841,
-            "duration": 5,
-            "firstSimulationStep": 0,
-            "lastSimulationStep": 400,
+            "spikeDuration": 1,
+            "slowMotionFactor": 1,
             "voltageRange": [
                 -80,
                 -50
@@ -26,24 +25,6 @@
             "showCloseUpDendrites": true,
             "showCloseUpSoma": true,
             "outputFilename": "./output/movie-841.mp4"
-        },
-        {
-            "circuit": "/gpfs/bbp.cscs.ch/project/proj42/simulations/CA1.O1.20191017/full_comportment/BlueConfig",
-            "report": "AllCompartmentsVoltage",
-            "gid": 842,
-            "duration": 1,
-            "firstSimulationStep": 122,
-            "lastSimulationStep": 182,
-            "voltageRange": [
-                -80,
-                -50
-            ],
-            "title": "EPSP attenuation",
-            "subTitle": "L5 TTPC1\ncADpyr",
-            "showCloseUpAxon": true,
-            "showCloseUpDendrites": true,
-            "showCloseUpSoma": true,
-            "outputFilename": "./output/movie-842.mp4"
         }
     ],
     "materialSpecularExponent": 15,

@@ -5,7 +5,7 @@ class Paint:
         self.width = width
         self.height = height
         self.output = Image.new('RGBA', (width, height))
-        self.font = ImageFont.truetype('./gfx/font.ttf', 16)
+        self.font = ImageFont.truetype('./gfx/font.ttf', 22)
         self.fontSubTitle = ImageFont.truetype('./gfx/font.ttf', 20)
         self.fontTitle = ImageFont.truetype('./gfx/font.ttf', 24)
 

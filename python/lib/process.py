@@ -20,10 +20,13 @@ def exec(cfg, brayns, flags):
         return False
     movie = movies[movie_index]
 
-    if not "preview" in flags:
-        generate(cfg, brayns, movie, movie_index)
+    neuron = lib.neuron.Neuron(
+        movie["circuit"], movie["report"], movie["gid"], movie["spikeDuration"])
+    simulation_steps = get_simulation_steps(neuron.simulation_start, neuron.simulation_end)
 
-    simulation_steps = get_simulation_steps(cfg, movie)
+    if not "preview" in flags:
+        generate(cfg, brayns, movie, movie_index, simulation_steps)
+
     compose(cfg, movie, simulation_steps, flags)
 
     movie_path = movie["outputFilename"]
@@ -36,12 +39,15 @@ def exec(cfg, brayns, flags):
 
 
 def compose(cfg, movie, simulation_steps, flags):
-    frames_count = len(simulation_steps)
+    movie_duration = movie["spikeDuration"] * movie["slowMotionFactor"]
+    steps_count = len(simulation_steps)
+    frames_count = movie_duration * cfg["fps"]
     print(lib.style.info("    Compositing ", f"{frames_count} frame(s)"))
     path = f"{cfg['tempFolder']}/final"
     lib.fs.clean_folder(path)
     for frame_idx in range(frames_count):
         (w, h) = cfg["resolution"]
+        step_index = math.floor(steps_count * frame_idx / frames_count)
         frame_name = f"{lib.util.pad(frame_idx, 5)}.png"
         frame = lib.paint.Paint(w, h)
         frame.paint_image("./gfx/background.jpg")
@@ -53,14 +59,15 @@ def compose(cfg, movie, simulation_steps, flags):
         frame.paint_image(f"{cfg['tempFolder']}/soma/{frame_name}", w - size, 0, crop=crop)
         frame.paint_image("./gfx/zoom-back.png", w - size, size + margin, crop=crop)
         frame.paint_image(f"{cfg['tempFolder']}/dendrites/{frame_name}", w - size, size + margin, crop=crop)
-        frame.paint_image("./gfx/colorbar.49x369.png", 8, h / 2 - 185)
+        frame.paint_image("./gfx/colorbar.49x369.png", 16, h / 2 - 185)
         (v_min, v_max) = movie["voltageRange"]
-        frame.print(f"{v_max} mV", 60, h / 2 - 185, align_v="C")
-        frame.print(f"{v_min} mV", 60, h / 2 - 185 + 369, align_v="C")
+        frame.print(f"{v_max} mV", 68, h / 2 - 185, align_v="C")
+        frame.print(f"{v_min} mV", 68, h / 2 - 185 + 369, align_v="C")
         frame.printTitle(movie["title"], 16, 16)
         frame.printSubTitle(movie["subTitle"], 16, 48)
+        time = simulation_steps[frame_idx] * step_duration
         frame.print(
-            f"{simulation_steps[frame_idx] / 10} ms",
+            f"{math.floor(time * 1000)} ms",
             w / 2,
             16,
             align_h="C", align_v="T"
@@ -70,7 +77,7 @@ def compose(cfg, movie, simulation_steps, flags):
             break
 
 
-def generate(cfg, brayns, movie, movie_index):
+def generate(cfg, brayns, movie, movie_index, animation_frames):
     print(lib.style.info("Generating movie: ", f"{movie_index + 1} / {len(cfg['movies'])}"))
     lib.fs.clean_folder(cfg["tempFolder"])
     brayns.reset()
@@ -105,10 +112,8 @@ def generate(cfg, brayns, movie, movie_index):
     model_center = model_bounds.center()
     simulation_start = movie["firstSimulationStep"]
     simulation_stop = movie["lastSimulationStep"]
-    neuron = lib.neuron.Neuron(movie["circuit"], movie["gid"])
     camera_distance = model_bounds.diameter()
     [width, height] = cfg["resolution"]
-    animation_frames = get_simulation_steps(cfg, movie)
     spp = cfg["spp"]
     print(lib.style.info(
         f"    Simulation steps from {simulation_start} to {simulation_stop}: ",
@@ -140,26 +145,20 @@ def generate(cfg, brayns, movie, movie_index):
     )
 
 
-def get_simulation_steps(cfg, movie):
-    fps = cfg["fps"]
-    duration = movie["duration"]
-    simulation_start = movie["firstSimulationStep"]
-    simulation_stop = movie["lastSimulationStep"]
-    frames_count = math.ceil(fps * duration)
-    last = frames_count - 1
-    size = simulation_stop - simulation_start + 1
-    return [math.floor(simulation_start + size * n / last) for n in range(frames_count)]
+def get_simulation_steps(start, end):
+    return [x for x in range(start, end + 1)]
 
 
 def make_movie(brayns, output_folder, prefix, camera_target, camera_distance, simulation_start, simulation_stop, width, height, spp, animation_frames):
     path = f"{output_folder}/{prefix}"
     lib.fs.clean_folder(path)
+    simulation_length = len(animation_frames)
     print(lib.style.att("        resolution", [width, height]))
+    print(lib.style.att("        steps to render", simulation_length))
     brayns.exec("set-application-parameters", {
         "viewport": [width, height]
     })
     brayns.look_at(camera_target, camera_distance)
-    simulation_length = len(animation_frames)
     camera_frame = brayns.get_camera_frame()
     camera_frames = []
     for i in range(simulation_length):
